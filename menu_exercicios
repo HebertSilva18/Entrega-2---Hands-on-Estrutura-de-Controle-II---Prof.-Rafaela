@@ -1,0 +1,157 @@
+import java.util.Scanner;
+
+public class lista_exercicios {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int opcao;
+
+        do {
+            System.out.println("=== Lista de Exercícios ===");
+            System.out.println("1 - Desenho");
+            System.out.println("2 - Calcular Distância");
+            System.out.println("3 - Contar Letras, Espaços e Caracteres");
+            System.out.println("4 - Múltipla Escolha");
+            System.out.println("0 - Sair");
+            System.out.println("Escolha uma opção: ");
+            opcao = sc.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    desenho();
+                    break;
+                case 2:
+                    calcularDistancia();
+                    break;
+                case 3:
+                    sc.nextLine();
+                    contarLetras(sc);
+                    break;
+                case 4:
+                    sc.nextLine();
+                    multiplaEscolha(sc);
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+        } while (opcao != 0);
+
+    }
+
+    static void desenho() {
+        System.out.println(" +\"\"\"\"\"\"+ ");
+        System.out.println(" [| o o|]");
+        System.out.println("  |  ^ | ");
+        System.out.println("  | '-'| ");
+        System.out.println("  +----+ ");
+    }
+
+    static void calcularDistancia() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Latitude 1: ");
+        double lat1 = sc.nextDouble();
+
+        System.out.println("Longitude 1: ");
+        double lon1 = sc.nextDouble();
+
+        System.out.println("Latitude 2: ");
+        double lat2 = sc.nextDouble();
+
+        System.out.println("Longitude 2: ");
+        double lon2 = sc.nextDouble();
+
+        double raio = 6371.01;
+
+        double lat1rad = lat1 * Math.PI / 180;
+        double lon1rad = lon1 * Math.PI / 180;
+        double lat2rad = lat2 * Math.PI / 180;
+        double lon2rad = lon2 * Math.PI / 180;
+
+        double distancia = raio * Math.acos(Math.sin(lat1rad) * Math.sin(lat2rad) + Math.cos(lat1rad) * Math.cos(lat2rad) * Math.cos(lon1rad - lon2rad));
+
+        System.out.println("Distância: " + distancia + " km");
+    }
+
+    static void contarLetras(Scanner sc) {
+        System.out.println("Digite um texto: ");
+        String texto = sc.nextLine();
+
+        int letras = 0;
+        int espacos = 0;
+        int numeros = 0;
+        int outros = 0;
+
+        for (int i = 0; i < texto.length(); i++) {
+            char c = texto.charAt(i);
+
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                letras++;
+            } else if (c >= '0' && c <= '9') {
+                numeros++;
+            } else if (c == ' ') {
+                espacos++;
+            } else {
+                outros++;
+            }
+        }
+
+        System.out.println("Letras: " + letras);
+        System.out.println("Espaços: " + espacos);
+        System.out.println("Números: " + numeros);
+        System.out.println("Outros: " + outros);
+    }
+
+    static void multiplaEscolha(Scanner sc) {
+        int tentativas = 0;
+        String resposta;
+        boolean acertou = false;
+
+        do {
+            tentativas++;
+
+            System.out.println("Qual o conceito de usabilidade em IHC?");
+            System.out.println("a) Capacidade do sistema de processar grandes volumes de dados");
+            System.out.println("b) Conjunto de atributos que determinam o esforco necessário para usar um sistema");
+            System.out.println("c) Habilidade do sistema de se conectar a outros softwares");
+            System.out.println("d) Grau de segurança oferecido pelo sistema ao usuário");
+            System.out.println("e) Velocidade de resposta do servidor em milissegundos");
+            System.out.println("Tentativa " + tentativas + " de 3");
+            System.out.println("Digite sua resposta: ");
+            resposta = sc.nextLine();
+
+            switch (resposta) {
+                case "a":
+                    System.out.println("Resposta incorreta");
+                    break;
+                case "b":
+                    System.out.println("Resposta correta");
+                    System.out.println("Você acertou na tentativa " + tentativas);
+                    acertou = true;
+                    break;
+                case "c":
+                    System.out.println("Resposta incorreta");
+                    break;
+                case "d":
+                    System.out.println("Resposta incorreta");
+                    break;
+                case "e":
+                    System.out.println("Resposta incorreta");
+                    break;
+                default:
+                    System.out.println("Digite apenas a letra da alternativa");
+                    tentativas--;
+            }
+
+        } while (acertou == false && tentativas < 3);
+
+        if (acertou == false) {
+            System.out.println("Resposta incorreta nas 3 tentativas");
+        }
+    }
+
+}
